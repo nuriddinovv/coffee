@@ -3,19 +3,19 @@ import { BsKeyFill } from "react-icons/bs";
 import { FaRegUser } from "react-icons/fa";
 import { GoEye, GoEyeClosed } from "react-icons/go";
 import logo from "/logo.jpg";
-import useFetch from "../api/useFetch";
-import { LoginApi } from "../api/post";
+import useFetch from "@/api/useFetch";
+import { AuthApi } from "@/api/post";
 import { useNavigate } from "react-router";
 import { Loader } from "@mantine/core";
 // import toast from "react-hot-toast";
 
-type LoginResponse = {
+type AuthResponse = {
   access: string;
   refresh: string;
 };
 
-export default function Login() {
-  const [user, setUser] = useState<"barista" | "manager">("manager");
+export const Auth = () => {
+  const [user, setUser] = useState<"seller" | "admin">("admin");
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({ login: "", password: "" });
   const navigate = useNavigate();
@@ -23,27 +23,26 @@ export default function Login() {
     data,
     loading,
     error,
-    refetch: loginRequest,
+    refetch: authRequest,
   } = useFetch(
-    () => LoginApi({ login: formData.login, password: formData.password }),
+    () => AuthApi({ login: formData.login, password: formData.password }),
     false
   );
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    await loginRequest();
+    await authRequest();
   };
 
   useEffect(() => {
     if (data) {
       localStorage.setItem("userId", data.access);
-      navigate("/"); // yoki navigate("/admin") nimaga kerak bo'lsa
+      navigate("/");
     }
   }, [data, navigate]);
 
   return (
     <div className="min-h-screen w-full flex items-center justify-center px-4">
       <div className="w-full max-w-md bg-white/60 rounded-2xl pt-16 pb-8 px-4 shadow-sm relative">
-        {/* LOGO */}
         <div className="absolute -top-12 left-1/2 -translate-x-1/2">
           <img
             src={logo}
@@ -52,31 +51,26 @@ export default function Login() {
           />
         </div>
 
-        {/* User select buttons */}
         <div className="mt-2 px-1 md:px-4 flex items-center gap-3 mb-6">
           <button
-            onClick={() => setUser("manager")}
+            onClick={() => setUser("seller")}
             className={`h-[42px] w-1/2 rounded-xl border border-main font-bold text-sm md:text-base transition ${
-              user === "manager" ? "bg-main text-second" : "bg-white text-main"
+              user === "seller" ? "bg-main text-second" : "bg-white text-main"
             }`}
           >
-            Manager
+            Seller
           </button>
-
           <button
-            onClick={() => setUser("barista")}
+            onClick={() => setUser("admin")}
             className={`h-[42px] w-1/2 rounded-xl border border-main font-bold text-sm md:text-base transition ${
-              user === "barista" ? "bg-main text-second" : "bg-white text-main"
+              user === "admin" ? "bg-main text-second" : "bg-white text-main"
             }`}
           >
-            Barista
+            Admin
           </button>
         </div>
-
-        {/* Inputs */}
         <form onSubmit={handleSubmit}>
           <div className="px-1 md:px-4">
-            {/* LOGIN INPUT */}
             <div className="bg-white w-full flex items-center gap-3 border p-2 rounded-xl border-gray-300 mb-4">
               <FaRegUser size={20} className="text-gray-500" />
               <input
@@ -89,8 +83,6 @@ export default function Login() {
                 }
               />
             </div>
-
-            {/* PASSWORD INPUT */}
             <div className="bg-white w-full flex items-center gap-3 border p-2 rounded-xl border-gray-300">
               <BsKeyFill size={20} className="text-gray-500" />
               <input
@@ -111,19 +103,17 @@ export default function Login() {
               </button>
             </div>
           </div>
-
-          {/* Submit */}
           <div className="px-1 md:px-4">
             <button
               type="submit"
               disabled={loading}
-              className="bg-main h-[42px] text-second w-full mt-6 py-3 rounded-xl font-bold text-sm md:text-base hover:bg-main/90 transition"
+              className="bg-main h-[50px] text-second w-full mt-6 py-3 rounded-xl font-bold text-sm md:text-base hover:bg-main/90 transition"
             >
-              {loading ? <Loader color="white" /> : "Login"}
+              {loading ? <Loader color="white" /> : "Auth"}
             </button>
           </div>
         </form>
       </div>
     </div>
   );
-}
+};

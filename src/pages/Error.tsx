@@ -1,9 +1,10 @@
 import { Link } from "react-router";
+import type { FC } from "react";
 
-export default function Error() {
+export const ErrorPage: FC = () => {
   return (
     <div>
-      <Link to={"/"}>adashding jora</Link>
+      <Link to={"/"}>Error Page</Link>
     </div>
   );
-}
+};

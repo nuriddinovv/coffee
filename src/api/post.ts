@@ -1,22 +1,35 @@
-export const LoginApi = async ({
+export type AuthResponse = {
+  access: string;
+  refresh?: string;
+};
+
+export const AuthApi = async ({
   login,
   password,
 }: {
   login: string;
   password: string;
-}) => {
-  const response = await fetch(`/api/v1/login/`, {
+}): Promise<AuthResponse> => {
+  const res = await fetch("/api/v1/login/", {
     method: "POST",
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
     },
+    credentials: "include",
     body: JSON.stringify({
-      password: password,
       email: login,
+      password,
     }),
   });
 
-  const data = await response.json();
+  if (!res.ok) {
+    throw new Error("Login failed");
+  }
+
+  const data: AuthResponse = await res.json();
+
+  localStorage.setItem("access_token", data.access);
+
   return data;
 };

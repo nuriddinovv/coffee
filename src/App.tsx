@@ -3,8 +3,7 @@ import { router } from "./router";
 import { MantineProvider } from "@mantine/core";
 import { Toaster } from "react-hot-toast";
 
-// src/App.jsx
-function App() {
+export const App = () => {
   return (
     <MantineProvider>
       <div className="w-full h-screen overflow-hidden">
@@ -13,6 +12,4 @@ function App() {
       <Toaster />
     </MantineProvider>
   );
-}
-
-export default App;
+};
