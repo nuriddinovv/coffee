@@ -8,6 +8,7 @@ import { AuthApi } from "@/api/post";
 import { useNavigate } from "react-router";
 import { Loader } from "@mantine/core";
 // import toast from "react-hot-toast";
+import { GetUserApi } from "@/api/get";
 
 type AuthResponse = {
   access: string;
@@ -34,12 +35,29 @@ export const Auth = () => {
   };
 
   useEffect(() => {
-    if (data) {
-      localStorage.setItem("userId", data.access);
-      navigate("/");
-    }
-  }, [data, navigate]);
+    if (!data) return;
 
+    (async () => {
+      try {
+        const users = await GetUserApi();
+
+        const matchedUser = users.results.find(
+          (u) => u.email === formData.login
+        );
+
+        if (matchedUser?.id) {
+          localStorage.setItem("userId", String(matchedUser.id));
+        } else {
+          console.warn("Пользователь с таким email не найден");
+          localStorage.removeItem("userId");
+        }
+
+        navigate("/");
+      } catch (err) {
+        console.error("Ошибка при получении списка пользователей", err);
+      }
+    })();
+  }, [data, formData.login, navigate]);
   return (
     <div className="min-h-screen w-full flex items-center justify-center px-4">
       <div className="w-full max-w-md bg-white/60 rounded-2xl pt-16 pb-8 px-4 shadow-sm relative">

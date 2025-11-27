@@ -6,17 +6,25 @@ import { BiLogOut } from "react-icons/bi";
 import { GetUserApi, type IUserListResponse } from "@/api/get";
 import useFetch from "@/api/useFetch";
 
-export const NavBar: FC = ({ value, onChange }: any) => {
+interface NavBarProps {
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+export const NavBar: FC<NavBarProps> = ({ value, onChange }) => {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
 
-  // тянем весь список юзеров
   const { data } = useFetch<IUserListResponse | null>(GetUserApi);
 
-  const userId = Number(localStorage.getItem("userId"));
+  const userIdFromStorage = localStorage.getItem("userId");
+  const userId = userIdFromStorage ? Number(userIdFromStorage) : null;
 
-  const currentUser = data?.results?.find((u) => u.id === userId) || null;
+  const currentUser =
+    userId && data?.results
+      ? data.results.find((u) => u.id === userId) || null
+      : null;
 
   useEffect(() => {
     const handleClick = (e: MouseEvent) => {
@@ -32,6 +40,10 @@ export const NavBar: FC = ({ value, onChange }: any) => {
     localStorage.clear();
     navigate("/auth");
   };
+
+  const fullName =
+    currentUser &&
+    `${currentUser.first_name ?? ""} ${currentUser.last_name ?? ""}`.trim();
 
   return (
     <div className="flex items-center justify-between bg-[#FFFFFF] border-b border-b-[#E5E7EB] px-5">
@@ -74,11 +86,10 @@ export const NavBar: FC = ({ value, onChange }: any) => {
           <span>
             <p className="font-normal text-[16px] text-[#212121]">
               {currentUser
-                ? currentUser.username ||
-                  currentUser.first_name ||
-                  currentUser.email
+                ? fullName || currentUser.email || "No name"
                 : "Tizimga kiritilmagan"}
             </p>
+
             <p className="font-normal text-[14px] text-[#6A7282]">
               {currentUser ? "Seller" : "Tizimda yo'q"}
             </p>

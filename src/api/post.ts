@@ -31,5 +31,9 @@ export const AuthApi = async ({
 
   localStorage.setItem("access_token", data.access);
 
+  if (data.refresh) {
+    localStorage.setItem("refresh_token", data.refresh);
+  }
+
   return data;
 };
