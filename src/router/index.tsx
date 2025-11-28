@@ -1,7 +1,7 @@
 import { createBrowserRouter, redirect } from "react-router";
 import { getUserId } from "@/utils/auth";
 import { SellerLayout } from "@/layouts/seller-layout";
-import { Home } from "@/pages/admin/Home";
+import { DashboardAdminPage } from "@/pages/admin/dashboard";
 import { AdminLayout } from "@/layouts/admin-layout";
 import { Auth } from "@/pages/auth";
 import { AllProductsPage } from "@/pages/seller/all";
@@ -10,6 +10,8 @@ import { CookiesPage } from "@/pages/seller/cookies";
 import { DesertsPage } from "@/pages/seller/deserts";
 import { DrinksPage } from "@/pages/seller/drinks";
 import { ErrorPage } from "@/pages/error";
+import { BranchesAdminPage } from "@/pages/admin/branches";
+import { ProductsAdminPage } from "@/pages/admin/products";
 
 const requireAuth = async () => {
   const id = getUserId();
@@ -28,7 +30,11 @@ export const router = createBrowserRouter([
     path: "/admin",
     loader: requireAuth,
     element: <AdminLayout />,
-    children: [{ index: true, element: <Home /> }],
+    children: [
+      { index: true, element: <DashboardAdminPage /> },
+      { path: "branches", element: <BranchesAdminPage /> },
+      { path: "products", element: <ProductsAdminPage /> },
+    ],
   },
   {
     path: "/",
