@@ -7,7 +7,6 @@ import useFetch from "@/api/useFetch";
 import { AuthApi } from "@/api/post";
 import { useNavigate } from "react-router";
 import { Loader } from "@mantine/core";
-// import toast from "react-hot-toast";
 import { GetUserApi } from "@/api/get";
 
 type AuthResponse = {
@@ -20,6 +19,7 @@ export const Auth = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({ login: "", password: "" });
   const navigate = useNavigate();
+
   const {
     data,
     loading,
@@ -29,6 +29,7 @@ export const Auth = () => {
     () => AuthApi({ login: formData.login, password: formData.password }),
     false
   );
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     await authRequest();
@@ -52,12 +53,18 @@ export const Auth = () => {
           localStorage.removeItem("userId");
         }
 
-        navigate("/");
+        // 🔥🔥🔥 ЛОГИКА НАВИГАЦИИ ПО ТИПУ
+        if (user === "admin") {
+          navigate("/admin");
+        } else {
+          navigate("/");
+        }
       } catch (err) {
         console.error("Ошибка при получении списка пользователей", err);
       }
     })();
-  }, [data, formData.login, navigate]);
+  }, [data, formData.login, navigate, user]);
+
   return (
     <div className="min-h-screen w-full flex items-center justify-center px-4">
       <div className="w-full max-w-md bg-white/60 rounded-2xl pt-16 pb-8 px-4 shadow-sm relative">
@@ -78,6 +85,7 @@ export const Auth = () => {
           >
             Seller
           </button>
+
           <button
             onClick={() => setUser("admin")}
             className={`h-[42px] w-1/2 rounded-xl border border-main font-bold text-sm md:text-base transition ${
@@ -87,6 +95,7 @@ export const Auth = () => {
             Admin
           </button>
         </div>
+
         <form onSubmit={handleSubmit}>
           <div className="px-1 md:px-4">
             <div className="bg-white w-full flex items-center gap-3 border p-2 rounded-xl border-gray-300 mb-4">
@@ -101,6 +110,7 @@ export const Auth = () => {
                 }
               />
             </div>
+
             <div className="bg-white w-full flex items-center gap-3 border p-2 rounded-xl border-gray-300">
               <BsKeyFill size={20} className="text-gray-500" />
               <input
@@ -112,15 +122,17 @@ export const Auth = () => {
                   setFormData({ ...formData, password: e.target.value })
                 }
               />
+
               <button
                 type="button"
-                onClick={() => setShowPassword((prev) => !prev)}
+                onClick={() => setShowPassword(!showPassword)}
                 className="text-gray-500 hover:text-main transition"
               >
                 {showPassword ? <GoEyeClosed size={20} /> : <GoEye size={20} />}
               </button>
             </div>
           </div>
+
           <div className="px-1 md:px-4">
             <button
               type="submit"
