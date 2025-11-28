@@ -12,6 +12,7 @@ import { DrinksPage } from "@/pages/seller/drinks";
 import { ErrorPage } from "@/pages/error";
 import { BranchesAdminPage } from "@/pages/admin/branches";
 import { ProductsAdminPage } from "@/pages/admin/products";
+import { BranchAdminPage } from "@/pages/admin/branch";
 
 const requireAuth = async () => {
   const id = getUserId();
@@ -33,6 +34,7 @@ export const router = createBrowserRouter([
     children: [
       { index: true, element: <DashboardAdminPage /> },
       { path: "branches", element: <BranchesAdminPage /> },
+      { path: "branches/:id", element: <BranchAdminPage /> },
       { path: "products", element: <ProductsAdminPage /> },
     ],
   },

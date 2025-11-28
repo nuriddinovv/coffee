@@ -27,8 +27,6 @@ export const AllProductsPage = () => {
 
   const handleClose = () => setSelectedProduct(null);
 
-  console.log(data.products);
-
   return (
     <>
       <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4 p-4">

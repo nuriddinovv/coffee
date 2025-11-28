@@ -24,5 +24,27 @@
         }
       ]
     }
+  ],
+  "branches": [
+    {
+      "id": 1,
+      "name": "JZR Coffee Main",
+      "address": "Toshkent, Mirobod Tumani, Istiqbol ko'chasi 18-uy",
+      "description": "Asosiy filial",
+      "image": "https://touristpro.com/api/files/3008706f-0e97-4d3e-888c-f22701da3b0d",
+      "sellerCount": [
+        {
+          "name": "Rahmatjon",
+          "id": 1
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "JZR Coffee Test",
+      "address": "Toshkent, Mirobod Tumani, Istiqbol ko'chasi 18-uy",
+      "description": "Asosiy filial",
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRg-pqaKX6KVJhkXYQELU6D_mpyvx6jY5711Q&s"
+    }
   ]
 }
