@@ -53,7 +53,6 @@ export const Auth = () => {
           localStorage.removeItem("userId");
         }
 
-        // 🔥🔥🔥 ЛОГИКА НАВИГАЦИИ ПО ТИПУ
         if (user === "admin") {
           navigate("/admin");
         } else {
