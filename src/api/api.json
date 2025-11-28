@@ -3,7 +3,7 @@
     {
       "id": 1,
       "name": "Latte",
-      "image": "/images/locations/jzr-coffee-main.jpg",
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTR8Q_RrELDLpBSuhHF9CEAWgSBo9mRQtSy-g&s",
       "description": "Tayyorlanishi: stakanga shakar sut keyin espresso solinadii",
       "category": 1,
       "sizes": [
@@ -21,19 +21,6 @@
           "size": 400,
           "price": 35000,
           "preparation": "Espresso: one shot, Sut 280ml, Shakar 30ml"
-        }
-      ]
-    },
-    {
-      "id": 2,
-      "name": "Snikers",
-      "description": "shartmas",
-      "category": 2,
-      "sizes": [
-        {
-          "size": null,
-          "price": 10000,
-          "preparation": null
         }
       ]
     }
