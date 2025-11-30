@@ -34,3 +34,34 @@ export const AuthApi = async ({
 
   return data;
 };
+
+export const AddUserApi = async ({
+  email,
+  first_name,
+  last_name,
+  password,
+}: {
+  email: string;
+  first_name: string;
+  last_name: string;
+  password: string;
+}) => {
+  const res = await fetch("/api/v1/register/", {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    credentials: "include",
+    body: JSON.stringify({
+      email,
+      first_name,
+      last_name,
+      password,
+    }),
+  });
+
+  if (!res.ok) throw new Error("Registration failed");
+
+  return res.json();
+};

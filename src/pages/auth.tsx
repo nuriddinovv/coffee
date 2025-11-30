@@ -9,11 +9,6 @@ import { useNavigate } from "react-router";
 import { Loader } from "@mantine/core";
 import { GetUserApi } from "@/api/get";
 
-type AuthResponse = {
-  access: string;
-  refresh: string;
-};
-
 export const Auth = () => {
   const [user, setUser] = useState<"seller" | "admin">("admin");
   const [showPassword, setShowPassword] = useState(false);
@@ -23,7 +18,6 @@ export const Auth = () => {
   const {
     data,
     loading,
-    error,
     refetch: authRequest,
   } = useFetch(
     () => AuthApi({ login: formData.login, password: formData.password }),

@@ -5,12 +5,12 @@ import { useNavigate } from "react-router";
 import { BiLogOut } from "react-icons/bi";
 import { NavLink, Outlet } from "react-router";
 import {
-  FaCoffee,
+  // FaCoffee,
   FaBorderAll,
-  FaCookieBite,
-  FaBirthdayCake,
+  // FaCookieBite,
+  // FaBirthdayCake,
 } from "react-icons/fa";
-import { RiDrinks2Fill } from "react-icons/ri";
+// import { RiDrinks2Fill } from "react-icons/ri";
 import { FaMapLocationDot } from "react-icons/fa6";
 import { FaBoxOpen } from "react-icons/fa";
 
