@@ -2,21 +2,7 @@ import { useState } from "react";
 import data from "@/api/api.json";
 import { ModalProductForm } from "@/components/modal-product-form";
 import { ProductForm } from "@/components/product-form";
-
-export interface ISizes {
-  size: number;
-  price?: number;
-  preparation: string;
-}
-
-export interface IProducts {
-  id: number;
-  name: string;
-  image?: string;
-  description: string;
-  category: number;
-  sizes: ISizes[];
-}
+import type { IProducts } from "@/utils/interfaces";
 
 export const AllProductsPage = () => {
   const [selectedProduct, setSelectedProduct] = useState<IProducts | null>(

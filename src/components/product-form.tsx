@@ -1,10 +1,5 @@
 import type { FC, MouseEventHandler } from "react";
-import { type IProducts } from "@/pages/seller/all";
-
-interface ProductCardProps {
-  product: IProducts;
-  onClick?: (product: IProducts) => void;
-}
+import type { ProductCardProps } from "@/utils/interfaces";
 
 export const ProductForm: FC<ProductCardProps> = ({ product, onClick }) => {
   const handleClick: MouseEventHandler<HTMLDivElement> = () => {

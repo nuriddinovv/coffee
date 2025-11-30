@@ -1,7 +1,4 @@
-export type AuthResponse = {
-  access: string;
-  refresh?: string;
-};
+import type { AuthResponse } from "@/utils/interfaces";
 
 export const AuthApi = async ({
   login,
